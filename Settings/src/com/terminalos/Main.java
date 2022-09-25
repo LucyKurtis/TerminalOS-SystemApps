@@ -23,7 +23,9 @@ public class Main {
     static void Settings() throws IOException, URISyntaxException, InterruptedException {
         cls();
         settingslogo();
-        System.out.println("\n M > Return to Main Menu\n\n TerminalOSJ Settings:\n\n P > Reset TerminalOS Password\n S > System Information");
+        System.out.println("\n M > Return to Main Menu\n");
+        System.out.println(" P > Reset TerminalOS Password");
+        System.out.println(" S > System Information");
         Scanner Input = new Scanner(System.in);  // Create a Scanner object
         System.out.println("\n  Listening > ");
         String rawuserinput = Input.nextLine(); // Read user input
@@ -34,12 +36,11 @@ public class Main {
         if (userinput.equals(mainmenu)) {
             System.exit(0);
         }else if (userinput.equals(resetpass)) {
-            //String fileName = "./TerminalOSJ/Settings/login.txt";
             String homeFolder = System.getProperty("user.home");
             PrintWriter writepass = new PrintWriter(homeFolder + "/TerminalOS-Data/Settings/login.txt", "UTF-8");
             writepass.print("");
             writepass.close();
-            System.exit(0);
+            resetpass();
         }else if (userinput.equals(SystemInfo)) {
             SystemInfo();
         }else{
@@ -97,7 +98,24 @@ public class Main {
         String userinput = rawuserinput.replaceAll("\\s", "\\\\ ");
         Settings();
     }
-
+    // New password
+    static void resetpass() throws IOException, InterruptedException, URISyntaxException {
+        String homeFolder = System.getProperty("user.home");
+        System.out.println("\n\n Welcome to the Password Creation Menu\n Please enter your desired password:\n");
+        Scanner Input = new Scanner(System.in);  // Create a Scanner object
+        System.out.println("  Listening > ");
+        String inputpass = Input.nextLine(); // Read user input
+        PrintWriter writepass = new PrintWriter(homeFolder + "/TerminalOS-Data/Settings/login.txt", "UTF-8");
+        writepass.println(inputpass);
+        writepass.close();
+        cls();
+        System.out.print(Color.GREEN_BRIGHT);
+        logoTOSlogo();
+        System.out.println(" \n\n-- Password created --" + Color.RESET);
+        onesecondpause();
+        onesecondpause();
+        Settings();
+    }
 
     // -- LIBRARIES --
     // big ASCII
@@ -375,7 +393,7 @@ public class Main {
         }
         BufferedReader brTest = new BufferedReader(new FileReader(homeFolder + "/TerminalOS-Data/Resources/version.txt"));
         String version = brTest.readLine();
-        System.out.println("\n TerminalOS Version: " + Color.BLUE_BRIGHT + version + Color.RESET);
+        System.out.println("\n System Version: " + Color.BLUE_BRIGHT + version + Color.RESET);
     }
     enum Color {
         //Color end string, color reset

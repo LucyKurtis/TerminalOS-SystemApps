@@ -25,18 +25,102 @@ public class Main {
         appstext();
         System.out.println("\n M > Return to Main Menu\n");
         System.out.println(" AMGR Functions:\n");
-        System.out.println(" O > Open Applications folder in host OS");
+        System.out.println(" O > Open Applications folder in host OS\n");
         System.out.println(" Application Types:\n");
         System.out.println(" J > View JAR Applications");
-        System.out.println(" B > View BATCH Applications");
+        System.out.println(" B > View BATCH Applications" + Color.RED + " -- Windows hosts only! --" + Color.RESET);
         Scanner Input = new Scanner(System.in);  // Create a Scanner object
         System.out.println("\n  Listening > ");
         String rawuserinput = Input.next(); // Read user input
         String userinput = rawuserinput.replaceAll("\\s", "\\\\ ");
-
+        String exit = "M";
+        String openappfolder = "O";
+        String jar = "J";
+        String batch = "B";
+        if (userinput.equals(exit)) {
+            System.exit(0);
+        } else if (userinput.equals(openappfolder)) {
+            String homeFolder = System.getProperty("user.home");
+            File file = new File (homeFolder + "/TerminalOS-Data/Applications");
+            Desktop desktop = Desktop.getDesktop();
+            desktop.open(file);
+            mainmenu();
+        } else if (userinput.equals(jar)) {
+            jarapps();
+        } else if (userinput.equals(batch)) {
+            batchapps();
+        } else {
+            mainmenu();
+        }
     }
-    static void jarapps() {
-
+    static void jarapps() throws IOException, InterruptedException, URISyntaxException {
+        cls();
+        jarappascii();
+        System.out.println("\n M > Return to Application Menu\n");
+        apps();
+        //start user input
+        Scanner Input = new Scanner(System.in);  // Create a Scanner object
+        System.out.println("\n  Listening > ");
+        String rawuserinput = Input.next(); // Read user input
+        String userinput = rawuserinput.replaceAll("\\s", "\\\\ ");
+        //end user input
+        String menu = "M";
+        if (userinput.endsWith(".jar")) {
+            cls();
+            final String os = System.getProperty("os.name");
+            if (os.contains("Windows")) {
+                String homeFolder = System.getProperty("user.home");
+                new ProcessBuilder("cmd", "/c", "java -jar \"" + homeFolder + "\\TerminalOS-Data\\Applications\\" + userinput + "\"").inheritIO().start().waitFor();
+                System.out.print(Color.RESET);
+                jarapps();
+            } else {
+                String homeFolder = System.getProperty("user.home");
+                ProcessBuilder processBuilder = new ProcessBuilder();
+                processBuilder.command("bash", "-c", "java -jar " + homeFolder + "/TerminalOS-Data/Applications/" + userinput).inheritIO().start().waitFor();
+                System.out.print(Color.RESET);
+                jarapps();
+            }
+        } else if (userinput.equals(menu)){
+            mainmenu();
+        } else {
+            jarapps();
+        }
+    }
+    static void batchapps() throws IOException, InterruptedException, URISyntaxException {
+        cls();
+        jarappascii();
+        System.out.println("\n M > Return to Application Menu\n");
+        bapps();
+        //start user input
+        Scanner Input = new Scanner(System.in);  // Create a Scanner object
+        System.out.println("\n  Listening > ");
+        String rawuserinput = Input.next(); // Read user input
+        String userinput = rawuserinput.replaceAll("\\s", "\\\\ ");
+        //end user input
+        String menu = "M";
+        if (userinput.endsWith(".bat")) {
+            final String os = System.getProperty("os.name");
+            if (os.contains("Windows")) {
+                String homeFolder = System.getProperty("user.home");
+                new ProcessBuilder("cmd", "/c", "call \"" + homeFolder + "\\TerminalOS-Data\\Applications\\" + userinput + "\"").inheritIO().start().waitFor();
+                new ProcessBuilder("cmd", "/c", "title TerminalOS").inheritIO().start().waitFor();
+                System.out.print(Color.RESET);
+                batchapps();
+            } else {
+                System.out.println(Color.RED + " -- Error running BATCH Program on non Windows OS --");
+                SystemInfo systemInfo = new SystemInfo();
+                OperatingSystem operatingSystem = systemInfo.getOperatingSystem();
+                System.out.println(" \"" + operatingSystem.toString() + "\" Cannot execute windows batch files.\n\n Returning to main menu..." + Color.RESET);
+                onesecondpause();
+                onesecondpause();
+                onesecondpause();
+                mainmenu();
+            }
+        } else if (userinput.equals(menu)){
+            mainmenu();
+        } else {
+            batchapps();
+        }
     }
 
     // -- LIBRARIES --
@@ -200,6 +284,26 @@ public class Main {
         System.out.println("      | |   | |        ");
         System.out.println("      |_|   |_|        ");
     }
+    static void batchappascii() {
+        System.out.println("  ___                  ");
+        System.out.println(" / _ \\                 ");
+        System.out.println("/ /_\\ \\_ __  _ __  ___     _          _  ");
+        System.out.println("|  _  | '_ \\| '_ \\/ __|   | |__  __ _| |_ ");
+        System.out.println("| | | | |_) | |_) \\__ \\  _| '_ \\/ _` |  _|");
+        System.out.println("\\_| |_/ .__/| .__/|___/ (_)_.__/\\__,_|\\__|");
+        System.out.println("      | |   | |        ");
+        System.out.println("      |_|   |_|        ");
+    }
+    static void jarappascii() {
+        System.out.println("  ___                  ");
+        System.out.println(" / _ \\                 ");
+        System.out.println("/ /_\\ \\_ __  _ __  ___ ");
+        System.out.println("|  _  | '_ \\| '_ \\/ __|    (_)__ _ _ _ ");
+        System.out.println("| | | | |_) | |_) \\__ \\  _ | / _` | '_|");
+        System.out.println("\\_| |_/ .__/| .__/|___/ (_)/ \\__,_|_|  ");
+        System.out.println("      | |   | |          |__/          ");
+        System.out.println("      |_|   |_|        ");
+    }
     // functions and enums
     static void cls() throws IOException, InterruptedException {
         final String os = System.getProperty("os.name");
@@ -305,7 +409,7 @@ public class Main {
             }
         };
         String imageFilesList[] = directoryPath.list(batFilefilter);
-        System.out.println(" Installed Batch Apps:");
+        System.out.println(" Installed Batch Programs:");
         for(String fileName : imageFilesList) {
             System.out.println("   " + fileName);
         }
