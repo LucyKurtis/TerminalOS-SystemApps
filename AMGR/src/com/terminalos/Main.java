@@ -78,17 +78,37 @@ public class Main {
             final String os = System.getProperty("os.name");
             if (os.contains("Windows")) {
                 try {
+                    cls();
+                    logoTOSlogo();
+                    System.out.println();
+                    quickloadingbar();
+                    cls();
                     new ProcessBuilder("cmd", "/c", "java -jar \"" + homeFolder + "\\TerminalOS\\Applications\\" + userinput).inheritIO().start().waitFor();
                     System.out.print(Color.RESET);
+                    cls();
+                    logoTOSlogo();
+                    System.out.println();
+                    quickloadingbar();
+                    cls();
                     nativeapps();
                 } catch (Exception e) {
                     nativeapps();
                 }
             } else {
                 try {
+                    cls();
+                    logoTOSlogo();
+                    System.out.println();
+                    quickloadingbar();
+                    cls();
                     ProcessBuilder processBuilder = new ProcessBuilder();
                     processBuilder.command("bash", "-c", "java -jar " + homeFolder + "/TerminalOS/Applications/" + userinput).inheritIO().start().waitFor();
                     System.out.print(Color.RESET);
+                    cls();
+                    logoTOSlogo();
+                    System.out.println();
+                    quickloadingbar();
+                    cls();
                     nativeapps();
                 } catch (Exception e) {
                     nativeapps();
@@ -130,18 +150,38 @@ public class Main {
                 String userinput = filenames[userinput1 - 1]; ///PROBLEMATIC LINE
                 final String os = System.getProperty("os.name");
                 if (os.contains("Windows")) {
+                    cls();
+                    logoTOSlogo();
+                    System.out.println();
+                    quickloadingbar();
+                    cls();
                     new ProcessBuilder("cmd", "/c", "call \"" + homeFolder + "\\TerminalOS\\Applications\\" + userinput + "\"").inheritIO().start().waitFor();
                     new ProcessBuilder("cmd", "/c", "title TerminalOS").inheritIO().start().waitFor();
                     System.out.print(Color.RESET);
+                    cls();
+                    logoTOSlogo();
+                    System.out.println();
+                    quickloadingbar();
+                    cls();
+                    batchprograms();
                 } else {
                     try {
+                        cls();
+                        logoTOSlogo();
+                        System.out.println();
+                        quickloadingbar();
+                        cls();
                         System.out.println(Color.RED + " -- Error running BATCH Program on non Windows OS --");
                         SystemInfo systemInfo = new SystemInfo();
                         OperatingSystem operatingSystem = systemInfo.getOperatingSystem();
                         System.out.println(" \"" + operatingSystem.toString() + "\" Cannot execute windows batch files.\n\n Returning to main menu..." + Color.RESET);
                         onesecondpause();
                         onesecondpause();
-                        onesecondpause();
+                        cls();
+                        logoTOSlogo();
+                        System.out.println();
+                        quickloadingbar();
+                        cls();
                         mainmenu();
                     } catch (Exception e) {
                         batchprograms();
@@ -190,80 +230,6 @@ public class Main {
         System.out.println(" | |\\/| |/ _ \\ '_ \\| | | |");
         System.out.println(" | |  | |  __/ | | | |_| |");
         System.out.println(" |_|  |_|\\___|_| |_|\\__,_|");
-    }
-    public static void loadingbar() {
-        System.out.print("\r [                                 ]");
-        smolpause2();
-        System.out.print("\r [-                                ]");
-        smolpause2();
-        System.out.print("\r [--                               ]");
-        smolpause2();
-        System.out.print("\r [---                              ]");
-        smolpause2();
-        System.out.print("\r [----                             ]");
-        smolpause2();
-        System.out.print("\r [-----                            ]");
-        smolpause2();
-        System.out.print("\r [------                           ]");
-        smolpause2();
-        System.out.print("\r [-------                          ]");
-        smolpause2();
-        System.out.print("\r [-------                          ]");
-        smolpause2();
-        System.out.print("\r [--------                         ]");
-        smolpause2();
-        System.out.print("\r [---------                        ]");
-        smolpause2();
-        System.out.print("\r [----------                       ]");
-        smolpause2();
-        System.out.print("\r [-----------                      ]");
-        smolpause2();
-        System.out.print("\r [------------                     ]");
-        smolpause2();
-        System.out.print("\r [-------------                    ]");
-        smolpause2();
-        System.out.print("\r [--------------                   ]");
-        smolpause2();
-        System.out.print("\r [---------------                  ]");
-        smolpause2();
-        System.out.print("\r [----------------                 ]");
-        smolpause2();
-        System.out.print("\r [-----------------                ]");
-        smolpause2();
-        System.out.print("\r [------------------               ]");
-        smolpause2();
-        System.out.print("\r [-------------------              ]");
-        smolpause2();
-        System.out.print("\r [--------------------             ]");
-        smolpause2();
-        System.out.print("\r [---------------------            ]");
-        smolpause2();
-        System.out.print("\r [----------------------           ]");
-        smolpause2();
-        System.out.print("\r [-----------------------          ]");
-        smolpause2();
-        System.out.print("\r [------------------------         ]");
-        smolpause2();
-        System.out.print("\r [-------------------------        ]");
-        smolpause2();
-        System.out.print("\r [--------------------------       ]");
-        smolpause2();
-        System.out.print("\r [---------------------------      ]");
-        smolpause2();
-        System.out.print("\r [----------------------------     ]");
-        smolpause2();
-        System.out.print("\r [-----------------------------    ]");
-        smolpause2();
-        System.out.print("\r [------------------------------   ]");
-        smolpause2();
-        System.out.print("\r [-------------------------------  ]");
-        smolpause2();
-        System.out.print("\r [-------------------------------- ]");
-        smolpause2();
-        System.out.print("\r [---------------------------------]");
-        smolpause2();
-        System.out.println("\n Done");
-        onesecondpause();
     }
     public static void animlogo() {
         smolpause();
@@ -341,6 +307,150 @@ public class Main {
         System.out.println("      | |   | |          |__/          ");
         System.out.println("      |_|   |_|        ");
     }
+    public static void quickloadingbar() {
+        System.out.print("\r [                                 ]");
+        fasterrandompause();
+        System.out.print("\r [-                                ]");
+        fasterrandompause();
+        System.out.print("\r [--                               ]");
+        fasterrandompause();
+        System.out.print("\r [---                              ]");
+        fasterrandompause();
+        System.out.print("\r [----                             ]");
+        fasterrandompause();
+        System.out.print("\r [-----                            ]");
+        fasterrandompause();
+        System.out.print("\r [------                           ]");
+        fasterrandompause();
+        System.out.print("\r [-------                          ]");
+        fasterrandompause();
+        System.out.print("\r [-------                          ]");
+        fasterrandompause();
+        System.out.print("\r [--------                         ]");
+        fasterrandompause();
+        System.out.print("\r [---------                        ]");
+        fasterrandompause();
+        System.out.print("\r [----------                       ]");
+        fasterrandompause();
+        System.out.print("\r [-----------                      ]");
+        fasterrandompause();
+        System.out.print("\r [------------                     ]");
+        fasterrandompause();
+        System.out.print("\r [-------------                    ]");
+        fasterrandompause();
+        System.out.print("\r [--------------                   ]");
+        fasterrandompause();
+        System.out.print("\r [---------------                  ]");
+        fasterrandompause();
+        System.out.print("\r [----------------                 ]");
+        fasterrandompause();
+        System.out.print("\r [-----------------                ]");
+        fasterrandompause();
+        System.out.print("\r [------------------               ]");
+        fasterrandompause();
+        System.out.print("\r [-------------------              ]");
+        fasterrandompause();
+        System.out.print("\r [--------------------             ]");
+        fasterrandompause();
+        System.out.print("\r [---------------------            ]");
+        fasterrandompause();
+        System.out.print("\r [----------------------           ]");
+        fasterrandompause();
+        System.out.print("\r [-----------------------          ]");
+        fasterrandompause();
+        System.out.print("\r [------------------------         ]");
+        fasterrandompause();
+        System.out.print("\r [-------------------------        ]");
+        fasterrandompause();
+        System.out.print("\r [--------------------------       ]");
+        fasterrandompause();
+        System.out.print("\r [---------------------------      ]");
+        fasterrandompause();
+        System.out.print("\r [----------------------------     ]");
+        fasterrandompause();
+        System.out.print("\r [-----------------------------    ]");
+        fasterrandompause();
+        System.out.print("\r [------------------------------   ]");
+        fasterrandompause();
+        System.out.print("\r [-------------------------------  ]");
+        fasterrandompause();
+        System.out.print("\r [-------------------------------- ]");
+        fasterrandompause();
+        System.out.print("\r [---------------------------------]");
+        fasterrandompause();
+    }
+    public static void loadingbar() {
+        System.out.print("\r [                                 ]");
+        randompause();
+        System.out.print("\r [-                                ]");
+        randompause();
+        System.out.print("\r [--                               ]");
+        randompause();
+        System.out.print("\r [---                              ]");
+        randompause();
+        System.out.print("\r [----                             ]");
+        randompause();
+        System.out.print("\r [-----                            ]");
+        randompause();
+        System.out.print("\r [------                           ]");
+        randompause();
+        System.out.print("\r [-------                          ]");
+        randompause();
+        System.out.print("\r [-------                          ]");
+        randompause();
+        System.out.print("\r [--------                         ]");
+        randompause();
+        System.out.print("\r [---------                        ]");
+        randompause();
+        System.out.print("\r [----------                       ]");
+        randompause();
+        System.out.print("\r [-----------                      ]");
+        randompause();
+        System.out.print("\r [------------                     ]");
+        randompause();
+        System.out.print("\r [-------------                    ]");
+        randompause();
+        System.out.print("\r [--------------                   ]");
+        randompause();
+        System.out.print("\r [---------------                  ]");
+        randompause();
+        System.out.print("\r [----------------                 ]");
+        randompause();
+        System.out.print("\r [-----------------                ]");
+        randompause();
+        System.out.print("\r [------------------               ]");
+        randompause();
+        System.out.print("\r [-------------------              ]");
+        randompause();
+        System.out.print("\r [--------------------             ]");
+        randompause();
+        System.out.print("\r [---------------------            ]");
+        randompause();
+        System.out.print("\r [----------------------           ]");
+        randompause();
+        System.out.print("\r [-----------------------          ]");
+        randompause();
+        System.out.print("\r [------------------------         ]");
+        randompause();
+        System.out.print("\r [-------------------------        ]");
+        randompause();
+        System.out.print("\r [--------------------------       ]");
+        randompause();
+        System.out.print("\r [---------------------------      ]");
+        randompause();
+        System.out.print("\r [----------------------------     ]");
+        randompause();
+        System.out.print("\r [-----------------------------    ]");
+        randompause();
+        System.out.print("\r [------------------------------   ]");
+        randompause();
+        System.out.print("\r [-------------------------------  ]");
+        randompause();
+        System.out.print("\r [-------------------------------- ]");
+        randompause();
+        System.out.print("\r [---------------------------------]");
+        randompause();
+    }
     // functions and enums
     static void cls() throws IOException, InterruptedException {
         final String os = System.getProperty("os.name");
@@ -354,6 +464,22 @@ public class Main {
     static void onesecondpause() {
         try {
             TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+    static void randompause() {
+        int random = (int)(Math.random() * 300 + 1);
+        try {
+            TimeUnit.MILLISECONDS.sleep(random);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+    static void fasterrandompause() {
+        int random = (int)(Math.random() * 50 + 1);
+        try {
+            TimeUnit.MILLISECONDS.sleep(random);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -410,32 +536,7 @@ public class Main {
         smolpause2();
         System.out.println(" |_|  |_|\\___|_| |_|\\__,_|");
     }
-    public static void apps() throws IOException {
-        //Creating a File object for directory
 
-    }
-    public static void bapps() throws IOException {
-
-        //Creating a File object for directory
-        String homeFolder = System.getProperty("user.home");
-        File directoryPath = new File(homeFolder + "/TerminalOS-Data/Applications");
-        FilenameFilter batFilefilter = new FilenameFilter(){
-            public boolean accept(File dir, String name) {
-                String lowercaseName = name.toLowerCase();
-                if (lowercaseName.endsWith(".bat")) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-        };
-        String imageFilesList[] = directoryPath.list(batFilefilter);
-        System.out.println(" Installed Batch Programs:");
-        for(String fileName : imageFilesList) {
-            System.out.println("   " + fileName);
-        }
-        System.out.println("");
-    }
     enum Color {
         //Color end string, color reset
         RESET("\033[0m"),
