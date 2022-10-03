@@ -381,19 +381,24 @@ public class Main {
     }
     public static void getVersion() throws IOException, InterruptedException {
         String homeFolder = System.getProperty("user.home");
-        new File(homeFolder + "/TerminalOS-Data/Resources").mkdirs();
+        new File(homeFolder + "/TerminalOS/OS/Resources").mkdirs();
         try { //create version
-            File login = new File(homeFolder + "/TerminalOS-Data/Resources/version.txt");
-            if (login.createNewFile()) {
+            File version = new File(homeFolder + "/TerminalOS/OS/Resources/version.memory");
+            if (version.createNewFile()) {
             } else {
             }
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
-        BufferedReader brTest = new BufferedReader(new FileReader(homeFolder + "/TerminalOS-Data/Resources/version.txt"));
+        BufferedReader brTest = new BufferedReader(new FileReader(homeFolder + "/TerminalOS/OS/Resources/version.memory"));
         String version = brTest.readLine();
-        System.out.println("\n System Version: " + Color.BLUE_BRIGHT + version + Color.RESET);
+        if (version == null) {
+            System.out.println(" " + Color.RED_BACKGROUND + "\nCouldn't get TerminalOS Version" + Color.RESET);
+        } else {
+            System.out.println("\n System Version: " + Color.BLUE_BRIGHT + version + Color.RESET);
+        }
+
     }
     enum Color {
         //Color end string, color reset

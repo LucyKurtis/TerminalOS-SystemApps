@@ -27,8 +27,8 @@ public class Main {
         System.out.println(" AMGR Functions:\n");
         System.out.println(" O > Open Applications folder in host OS\n");
         System.out.println(" Application Types:\n");
-        System.out.println(" J > View JAR Applications");
-        System.out.println(" B > View BATCH Applications" + Color.RED + " -- Windows hosts only! --" + Color.RESET);
+        System.out.println(" J > View Applications");
+        System.out.println(" B > View BATCH Programs" + Color.RED + " -- Windows hosts only! --" + Color.RESET);
         Scanner Input = new Scanner(System.in);  // Create a Scanner object
         System.out.println("\n  Listening > ");
         String rawuserinput = Input.next(); // Read user input
@@ -46,80 +46,117 @@ public class Main {
             desktop.open(file);
             mainmenu();
         } else if (userinput.equals(jar)) {
-            jarapps();
+            nativeapps();
         } else if (userinput.equals(batch)) {
-            batchapps();
+            batchprograms();
         } else {
             mainmenu();
         }
     }
-    static void jarapps() throws IOException, InterruptedException, URISyntaxException {
+    static void nativeapps() throws IOException, InterruptedException, URISyntaxException {
         cls();
-        jarappascii();
+        appstext();
         System.out.println("\n M > Return to Application Menu\n");
-        apps();
+        String homeFolder = System.getProperty("user.home");
+        File directoryPath = new File(homeFolder + "/TerminalOS-Data/Applications");
+        FilenameFilter jarFilefilter = (dir, name) -> name.regionMatches(true, name.length() - 4, ".app", 0, 4);
+        String filenames[] = directoryPath.list(jarFilefilter);
+        System.out.println(" Installed Apps:");
+        for (int i = 0; i < filenames.length; i++) {
+            System.out.printf("%2d > %s%n", i + 1, filenames[i]);
+        }
         //start user input
         Scanner Input = new Scanner(System.in);  // Create a Scanner object
         System.out.println("\n  Listening > ");
-        String rawuserinput = Input.next(); // Read user input
-        String userinput = rawuserinput.replaceAll("\\s", "\\\\ ");
+        String userinput0 = Input.next(); // Read user input
         //end user input
-        String menu = "M";
-        if (userinput.endsWith(".jar")) {
-            cls();
+        int userinput1 = 0;
+        try {
+            userinput1 = Integer.parseInt(userinput0);
+            if (userinput1 <= filenames.length) {
+                String userinput = filenames[userinput1 - 1]; ///PROBLEMATIC LINE
             final String os = System.getProperty("os.name");
             if (os.contains("Windows")) {
-                String homeFolder = System.getProperty("user.home");
-                new ProcessBuilder("cmd", "/c", "java -jar \"" + homeFolder + "\\TerminalOS-Data\\Applications\\" + userinput + "\"").inheritIO().start().waitFor();
-                System.out.print(Color.RESET);
-                jarapps();
+                try {
+                    new ProcessBuilder("cmd", "/c", "java -jar \"" + homeFolder + "\\TerminalOS-Data\\Applications\\" + userinput).inheritIO().start().waitFor();
+                    System.out.print(Color.RESET);
+                    nativeapps();
+                } catch (Exception e) {
+                    nativeapps();
+                }
             } else {
-                String homeFolder = System.getProperty("user.home");
-                ProcessBuilder processBuilder = new ProcessBuilder();
-                processBuilder.command("bash", "-c", "java -jar " + homeFolder + "/TerminalOS-Data/Applications/" + userinput).inheritIO().start().waitFor();
-                System.out.print(Color.RESET);
-                jarapps();
+                try {
+                    ProcessBuilder processBuilder = new ProcessBuilder();
+                    processBuilder.command("bash", "-c", "java -jar " + homeFolder + "/TerminalOS-Data/Applications/" + userinput).inheritIO().start().waitFor();
+                    System.out.print(Color.RESET);
+                    nativeapps();
+                } catch (Exception e) {
+                    nativeapps();
+                }
             }
-        } else if (userinput.equals(menu)){
+        } else {
+                nativeapps();
+            }
+        } catch (NumberFormatException ex) {
+        }
+        String menu = "M";
+        if (userinput0.equals(menu)) {
             mainmenu();
         } else {
-            jarapps();
+            nativeapps();
         }
     }
-    static void batchapps() throws IOException, InterruptedException, URISyntaxException {
+    static void batchprograms() throws IOException, URISyntaxException, InterruptedException {
         cls();
         jarappascii();
         System.out.println("\n M > Return to Application Menu\n");
-        bapps();
+        String homeFolder = System.getProperty("user.home");
+        File directoryPath = new File(homeFolder + "/TerminalOS-Data/Applications");
+        FilenameFilter jarFilefilter = (dir, name) -> name.regionMatches(true, name.length() - 4, ".bat", 0, 4);
+        String filenames[] = directoryPath.list(jarFilefilter);
+        System.out.println(" Installed Apps:");
+        for (int i = 0; i < filenames.length; i++) {
+            System.out.printf("%2d > %s%n", i + 1, filenames[i]);
+        }
         //start user input
         Scanner Input = new Scanner(System.in);  // Create a Scanner object
         System.out.println("\n  Listening > ");
-        String rawuserinput = Input.next(); // Read user input
-        String userinput = rawuserinput.replaceAll("\\s", "\\\\ ");
+        String userinput0 = Input.next(); // Read user input
         //end user input
-        String menu = "M";
-        if (userinput.endsWith(".bat")) {
-            final String os = System.getProperty("os.name");
-            if (os.contains("Windows")) {
-                String homeFolder = System.getProperty("user.home");
-                new ProcessBuilder("cmd", "/c", "call \"" + homeFolder + "\\TerminalOS-Data\\Applications\\" + userinput + "\"").inheritIO().start().waitFor();
-                new ProcessBuilder("cmd", "/c", "title TerminalOS").inheritIO().start().waitFor();
-                System.out.print(Color.RESET);
-                batchapps();
+        int userinput1 = 0;
+        try {
+            userinput1 = Integer.parseInt(userinput0);
+            if (userinput1 <= filenames.length) {
+                String userinput = filenames[userinput1 - 1]; ///PROBLEMATIC LINE
+                final String os = System.getProperty("os.name");
+                if (os.contains("Windows")) {
+                    new ProcessBuilder("cmd", "/c", "call \"" + homeFolder + "\\TerminalOS-Data\\Applications\\" + userinput + "\"").inheritIO().start().waitFor();
+                    new ProcessBuilder("cmd", "/c", "title TerminalOS").inheritIO().start().waitFor();
+                    System.out.print(Color.RESET);
+                } else {
+                    try {
+                        System.out.println(Color.RED + " -- Error running BATCH Program on non Windows OS --");
+                        SystemInfo systemInfo = new SystemInfo();
+                        OperatingSystem operatingSystem = systemInfo.getOperatingSystem();
+                        System.out.println(" \"" + operatingSystem.toString() + "\" Cannot execute windows batch files.\n\n Returning to main menu..." + Color.RESET);
+                        onesecondpause();
+                        onesecondpause();
+                        onesecondpause();
+                        mainmenu();
+                    } catch (Exception e) {
+                        batchprograms();
+                    }
+                }
             } else {
-                System.out.println(Color.RED + " -- Error running BATCH Program on non Windows OS --");
-                SystemInfo systemInfo = new SystemInfo();
-                OperatingSystem operatingSystem = systemInfo.getOperatingSystem();
-                System.out.println(" \"" + operatingSystem.toString() + "\" Cannot execute windows batch files.\n\n Returning to main menu..." + Color.RESET);
-                onesecondpause();
-                onesecondpause();
-                onesecondpause();
-                mainmenu();
+                batchprograms();
             }
-        } else if (userinput.equals(menu)){
+        } catch (NumberFormatException ex) {
+        }
+        String menu = "M";
+        if (userinput0.equals(menu)) {
             mainmenu();
         } else {
-            batchapps();
+            batchprograms();
         }
     }
 
@@ -375,23 +412,7 @@ public class Main {
     }
     public static void apps() throws IOException {
         //Creating a File object for directory
-        String homeFolder = System.getProperty("user.home");
-        File directoryPath = new File(homeFolder + "/TerminalOS-Data/Applications");
-        FilenameFilter batFilefilter = new FilenameFilter(){
-            public boolean accept(File dir, String name) {
-                String lowercaseName = name.toLowerCase();
-                if (lowercaseName.endsWith(".jar")) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-        };
-        String imageFilesList[] = directoryPath.list(batFilefilter);
-        System.out.println(" Installed JAR Apps:");
-        for(String fileName : imageFilesList) {
-            System.out.println("   " + fileName);
-        }
+
     }
     public static void bapps() throws IOException {
 
