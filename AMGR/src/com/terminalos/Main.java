@@ -58,7 +58,7 @@ public class Main {
         appstext();
         System.out.println("\n M > Return to Application Menu\n");
         String homeFolder = System.getProperty("user.home");
-        File directoryPath = new File(homeFolder + "/TerminalOS-Data/Applications");
+        File directoryPath = new File(homeFolder + "/TerminalOS/Applications");
         FilenameFilter jarFilefilter = (dir, name) -> name.regionMatches(true, name.length() - 4, ".app", 0, 4);
         String filenames[] = directoryPath.list(jarFilefilter);
         System.out.println(" Installed Apps:");
@@ -74,11 +74,11 @@ public class Main {
         try {
             userinput1 = Integer.parseInt(userinput0);
             if (userinput1 <= filenames.length) {
-                String userinput = filenames[userinput1 - 1]; ///PROBLEMATIC LINE
+                String userinput = filenames[userinput1 - 1];
             final String os = System.getProperty("os.name");
             if (os.contains("Windows")) {
                 try {
-                    new ProcessBuilder("cmd", "/c", "java -jar \"" + homeFolder + "\\TerminalOS-Data\\Applications\\" + userinput).inheritIO().start().waitFor();
+                    new ProcessBuilder("cmd", "/c", "java -jar \"" + homeFolder + "\\TerminalOS\\Applications\\" + userinput).inheritIO().start().waitFor();
                     System.out.print(Color.RESET);
                     nativeapps();
                 } catch (Exception e) {
@@ -87,7 +87,7 @@ public class Main {
             } else {
                 try {
                     ProcessBuilder processBuilder = new ProcessBuilder();
-                    processBuilder.command("bash", "-c", "java -jar " + homeFolder + "/TerminalOS-Data/Applications/" + userinput).inheritIO().start().waitFor();
+                    processBuilder.command("bash", "-c", "java -jar " + homeFolder + "/TerminalOS/Applications/" + userinput).inheritIO().start().waitFor();
                     System.out.print(Color.RESET);
                     nativeapps();
                 } catch (Exception e) {
@@ -111,7 +111,7 @@ public class Main {
         jarappascii();
         System.out.println("\n M > Return to Application Menu\n");
         String homeFolder = System.getProperty("user.home");
-        File directoryPath = new File(homeFolder + "/TerminalOS-Data/Applications");
+        File directoryPath = new File(homeFolder + "/TerminalOS/Applications");
         FilenameFilter jarFilefilter = (dir, name) -> name.regionMatches(true, name.length() - 4, ".bat", 0, 4);
         String filenames[] = directoryPath.list(jarFilefilter);
         System.out.println(" Installed Apps:");
@@ -130,7 +130,7 @@ public class Main {
                 String userinput = filenames[userinput1 - 1]; ///PROBLEMATIC LINE
                 final String os = System.getProperty("os.name");
                 if (os.contains("Windows")) {
-                    new ProcessBuilder("cmd", "/c", "call \"" + homeFolder + "\\TerminalOS-Data\\Applications\\" + userinput + "\"").inheritIO().start().waitFor();
+                    new ProcessBuilder("cmd", "/c", "call \"" + homeFolder + "\\TerminalOS\\Applications\\" + userinput + "\"").inheritIO().start().waitFor();
                     new ProcessBuilder("cmd", "/c", "title TerminalOS").inheritIO().start().waitFor();
                     System.out.print(Color.RESET);
                 } else {
