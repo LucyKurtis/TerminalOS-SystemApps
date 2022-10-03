@@ -55,6 +55,10 @@ public class Main {
     }
     static void nativeapps() throws IOException, InterruptedException, URISyntaxException {
         cls();
+        logoTOSlogo();
+        System.out.println();
+        quickloadingbar();
+        cls();
         appstext();
         System.out.println("\n M > Return to Application Menu\n");
         String homeFolder = System.getProperty("user.home");
@@ -85,10 +89,6 @@ public class Main {
                     cls();
                     new ProcessBuilder("cmd", "/c", "java -jar \"" + homeFolder + "\\TerminalOS\\Applications\\" + userinput).inheritIO().start().waitFor();
                     System.out.print(Color.RESET);
-                    cls();
-                    logoTOSlogo();
-                    System.out.println();
-                    quickloadingbar();
                     cls();
                     nativeapps();
                 } catch (Exception e) {
@@ -121,12 +121,21 @@ public class Main {
         }
         String menu = "M";
         if (userinput0.equals(menu)) {
+            cls();
+            logoTOSlogo();
+            System.out.println();
+            quickloadingbar();
+            cls();
             mainmenu();
         } else {
             nativeapps();
         }
     }
     static void batchprograms() throws IOException, URISyntaxException, InterruptedException {
+        cls();
+        logoTOSlogo();
+        System.out.println();
+        quickloadingbar();
         cls();
         jarappascii();
         System.out.println("\n M > Return to Application Menu\n");
@@ -159,10 +168,6 @@ public class Main {
                     new ProcessBuilder("cmd", "/c", "title TerminalOS").inheritIO().start().waitFor();
                     System.out.print(Color.RESET);
                     cls();
-                    logoTOSlogo();
-                    System.out.println();
-                    quickloadingbar();
-                    cls();
                     batchprograms();
                 } else {
                     try {
@@ -194,6 +199,11 @@ public class Main {
         }
         String menu = "M";
         if (userinput0.equals(menu)) {
+            cls();
+            logoTOSlogo();
+            System.out.println();
+            quickloadingbar();
+            cls();
             mainmenu();
         } else {
             batchprograms();
